@@ -7,9 +7,8 @@
 # IMPORTANTE: NO borrar los comentarios
 # que aparecen en verde con el hashtag "#"
 
-import json
+# import json
 import requests
-
 import matplotlib.pyplot as plt
 
 
@@ -46,4 +45,31 @@ if __name__ == '__main__':
     # y verifique si los primeros usuarios (mirando la página a ojo)
     # los datos recolectados son correctos.
 
+    resp = requests.get("https://jsonplaceholder.typicode.com/todos")
+    data = resp.json()
+   
+    lista_id_us = []
+    lista_cantidad = []
+    cant = 0
+    for i in data :
+        if i['completed'] == True:
+            id_us = (i['userId'])
+            lista_id_us.append(id_us)
+            
+
+    for k in lista_id_us:
+        cant = lista_id_us.count(k)
+        lista_cantidad.append(cant)
+    
+    x = lista_id_us
+    y = lista_cantidad
+    fig = plt.figure()
+    fig.suptitle('Titulos', fontsize=14)
+    ax = fig.add_subplot()
+    ax.bar(x, y, color='blue')
+    ax.set_ylabel("Cantidad")
+    ax.set_xlabel("Usuario")
+    ax.set_facecolor('whitesmoke')
+    ax.legend()
+    plt.show()  
     print("terminamos")
